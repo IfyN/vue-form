@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    
+    <body>
+        <div class="container pt-5 pb-5">
+        
+            <form id="app">
+
+              <span v-for="e in errors"></span>
+                
+                <section v-if= "topic==1">
+                    <h1>
+                    Topic1
+                       <input v-model="form.name" type="text" placeholder="Name is?" class="form-control form-control-lg">
+                    </h1>
+                </section>
+                
+                <section v-if="topic==2" >
+                    <h1>
+                    Topic2
+                  <input v-model="form.phone" type="text" placeholder="Phone number?" class="form-control form-control-lg">  
+                    <input v-model="form.email" type="text" placeholder="Email address ?" class="form-control form-control-lg">
+                    </h1>
+                </section>
+                
+                <section v-if="topic==3" >
+                    <h1>
+                    Topic3
+                        <textarea v-model="form.message" placeholder=
+                                   "Your Message" class="form-control form-control-lg"></textarea>
+                    </h1>
+                </section>
+
+                <button 
+                v-if="topic != 1"
+                v-on:click.prevent="prevTopic">
+                  Prev topic
+                </button>
+
+                <button 
+                v-if="topic != alltopics"
+                v-on:click.prevent="nextTopic">
+                  Next Topic
+                </button>
+
+
+                <button 
+                v-if="topic == 3"
+                v-on:click.prevent="sendQuery">
+                  Send Query
+                </button>
+            
+
+            </form>
+            
+        </div>
+        
+        <script>
+            new Vue({
+  el: "#app",
+  data: {
+      
+      topic:1,
+      alltopics:3,
+      errors:[],
+
+      form: {
+          name: null,
+          email: null,
+          phone: null,
+          message: null,
+      }
+    },
+
+    methods: {
+
+prevTopic:function()
+
+      {
+        this.topic--;
+      },
+      
+nextTopic:function (){
+
+if (this.topic == 1)
+{
+  if (!this.form.name)
+  {
+    this.errors='Please fill out your name';
+    return false;
+  }
+}
+
+if (this.topic == 2)
+{
+  if (!this.form.email)
+  {
+    this.errors='Please fill out your phone number';
+    return false;
+  }
+
+
+{
+  if (!this.form.phone)
+  {
+    this.errors='Please fill out your email address';
+    return false;
+  }
+}
+
+
+
+}
+
+
+this.topic++;
+      },
+
+      sendQuery:function(){
+
+if (this.topic == 3)
+{
+  if (!this.form.message)
+  {
+    this.errors='Please fill out your message';
+    return false;
+  }
+
+}
+        
+        alert("Sent");
+      }
+
+      
+        
+
+    },
+            })
+                
+            
+        </script>
+    </body>
+    
+    
+</html>
